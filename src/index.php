@@ -10,7 +10,7 @@
     $conn = get_connection();
 
     $commands = file_get_contents("../create-schema.sql");   
-    $result = mysqli_multi_query($conn, $query);
+    $result = mysqli_multi_query($conn, $commands);
 
     if ($result) {
         do {
