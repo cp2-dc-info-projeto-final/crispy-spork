@@ -9,14 +9,7 @@
 
     $conn = get_connection();
 
-    $commands = "DROP TABLE IF EXISTS usuarios;
-    CREATE TABLE usuarios (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(30) NOT NULL,
-    sobrenome VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
-    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    );";
+    $commands = file_get_contents("../create-schema.sql");  
     $result = mysqli_multi_query($conn, $commands);
 
     if ($result) {
@@ -35,6 +28,23 @@
         echo "Olá mundo!";
         echo "<br/>";
     }
+
+
+    $query = "SELECT nome, sobrenome, email FROM usuario";
+
+    if ($result = $conn->query($query)) {
+
+        /* fetch associative array */
+        while ($row = $result->fetch_assoc()) {
+            printf ("%s %s (%s)\n", $row["nome"], $row["sobrenome"], $row["email"]);
+        }
+
+        /* free result set */
+        $result->free();
+    }
+
+    /* close connection */
+    $conn->close();
  ?> 
  </body>
 </html>
