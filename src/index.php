@@ -22,12 +22,12 @@
     if ($result) {
         do {
             // grab the result of the next query
-            if (($result = mysqli_store_result($mysqli)) === false && mysqli_error($mysqli) != '') {
-                echo "Query failed: " . mysqli_error($mysqli);
+            if (($result = mysqli_store_result($conn)) === false && mysqli_error($conn) != '') {
+                echo "Query failed: " . mysqli_error($conn);
             }
-        } while (mysqli_more_results($mysqli) && mysqli_next_result($mysqli)); // while there are more results
+        } while (mysqli_more_results($conn) && mysqli_next_result($conn)); // while there are more results
     } else {
-        echo "First query failed..." . mysqli_error($mysqli);
+        echo "First query failed..." . mysqli_error($conn);
     }
     echo '<p>Hello World</p>';
     for ($i = 0; $i < 10 ; $i++)
